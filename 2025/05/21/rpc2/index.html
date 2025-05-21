@@ -18,21 +18,23 @@
   
   
   <title>rpc2 | Hexo</title>
-  <meta name="description" content="序列化的作用&emsp;&emsp;这里先粘贴一段经典的序列化的定义：序列化是RPC中一个重要的功能，它的作用是把一个对象序列化成字节数组，然后通过网络传输到另一个进程，再反序列化成对象。在我们的RPC框架中，我们将需要调用的接口的具体信息以及调用的参数封装到一个对象中，然后将参">
+  <meta name="description" content="序列化的作用&emsp;&emsp;这里先粘贴一段经典的序列化的定义：序列化是RPC中一个重要的功能，它的作用是把一个对象序列化成字节数组，然后通过网络传输到另一个进程，再反序列化成对象。在我们的RPC框架中，我们将需要调用的接口的具体信息以及调用的参数封装到一个对象中，然后将这个对象序列后化传输到服务的提供方。同样的，提供方也要将接口返回的结果序列化后再传回给调用方。 序列化的方式&emsp;&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rpc2">
-<meta property="og:url" content="http://example.com/2025/05/21/rpc2/index.html">
+<meta property="og:url" content="http://hit-1190200416.github.io/2025/05/21/rpc2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="序列化的作用&emsp;&emsp;这里先粘贴一段经典的序列化的定义：序列化是RPC中一个重要的功能，它的作用是把一个对象序列化成字节数组，然后通过网络传输到另一个进程，再反序列化成对象。在我们的RPC框架中，我们将需要调用的接口的具体信息以及调用的参数封装到一个对象中，然后将参">
+<meta property="og:description" content="序列化的作用&emsp;&emsp;这里先粘贴一段经典的序列化的定义：序列化是RPC中一个重要的功能，它的作用是把一个对象序列化成字节数组，然后通过网络传输到另一个进程，再反序列化成对象。在我们的RPC框架中，我们将需要调用的接口的具体信息以及调用的参数封装到一个对象中，然后将这个对象序列后化传输到服务的提供方。同样的，提供方也要将接口返回的结果序列化后再传回给调用方。 序列化的方式&emsp;&amp;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/2.png">
 <meta property="article:published_time" content="2025-05-21T08:19:51.000Z">
-<meta property="article:modified_time" content="2025-05-21T08:23:32.336Z">
+<meta property="article:modified_time" content="2025-05-21T08:55:29.516Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="rpc">
 <meta property="article:tag" content="序列化">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hit-1190200416.github.io/images/2.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2025/05/21/rpc2/index.html">
+  <link rel="canonical" href="http://hit-1190200416.github.io/2025/05/21/rpc2/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -57,7 +59,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/hit-1190200416" target="_blank">
-          <img class="img-circle img-rotate" src="https://www.gravatar.com/avatar/d3b1f4ff8b102eb3fc89f083a3be51b9?s=128" width="200" height="200">
+          <img class="img-circle img-rotate" src="/images/1.jpg" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">无敌APEX大王</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md">研究生</h3>
@@ -326,7 +328,11 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="序列化的作用"><a href="#序列化的作用" class="headerlink" title="序列化的作用"></a>序列化的作用</h2><p>&emsp;&emsp;这里先粘贴一段经典的序列化的定义：序列化是RPC中一个重要的功能，它的作用是把一个对象序列化成字节数组，然后通过网络传输到另一个进程，再反序列化成对象。在我们的RPC框架中，我们将需要调用的接口的具体信息以及调用的参数封装到一个对象中，然后将参</p>
+        <h2 id="序列化的作用"><a href="#序列化的作用" class="headerlink" title="序列化的作用"></a>序列化的作用</h2><p>&emsp;&emsp;这里先粘贴一段经典的序列化的定义：序列化是RPC中一个重要的功能，它的作用是把一个对象序列化成字节数组，然后通过网络传输到另一个进程，再反序列化成对象。在我们的RPC框架中，我们将需要调用的接口的具体信息以及调用的参数封装到一个对象中，然后将这个对象序列后化传输到服务的提供方。同样的，提供方也要将接口返回的结果序列化后再传回给调用方。</p>
+<h2 id="序列化的方式"><a href="#序列化的方式" class="headerlink" title="序列化的方式"></a>序列化的方式</h2><p>&emsp;&emsp;在我参考的开源项目中实现了java原生的序列化和基于json的序列化两种方式。但是在我查到的资料中，有很多要优于这两种序列化的实现。最早我想自己实现一下性能最强的protobuf进行序列化。不过这种序列化方式还需要单独用中间语言定义实体并编译，感觉并不符合RPC框架的初衷遂放弃。随后我盯上了更为简单的protostuff序列化。为了证明这个序列化的有效性，我编写了一个简单的测试类，分析不同序列化框架下对象序列化后的大小。传输的过程中我们需要将对象向上造型为Object类型，并记录其class信息，以方便后续的调用。在这里我用一个简单的Student类型和Exam类型来模拟这个过程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@SerializationRegister</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">    <span class="meta">@Tag(1)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Tag(2)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">    <span class="meta">@Tag(3)</span></span><br><span class="line">    <span class="keyword">private</span> Object data;</span><br><span class="line">    <span class="meta">@Tag(4)</span></span><br><span class="line">    <span class="keyword">private</span> Class clazz;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@SerializationRegister</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Exam</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Exam&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;score=&quot;</span> + score +</span><br><span class="line">                <span class="string">&quot;, course=&#x27;&quot;</span> + course + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Tag(1)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> score;</span><br><span class="line">    <span class="meta">@Tag(2)</span></span><br><span class="line">    <span class="keyword">private</span> String course;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        <span class="type">Exam</span> <span class="variable">exam</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Exam</span>(<span class="number">99</span>, <span class="string">&quot;zz&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> exam;</span><br><span class="line">        <span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;xx&quot;</span>, <span class="number">20</span>, o, Exam.class);</span><br><span class="line">        <span class="type">JsonSerializer</span> <span class="variable">jsonSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JsonSerializer</span>();</span><br><span class="line">        System.out.println(<span class="string">&quot;json序列化长度:&quot;</span> + jsonSerializer.serialize(student).length);</span><br><span class="line">        System.out.println(<span class="string">&quot;ProtoStuff序列化长度:&quot;</span> + ProtoStuffUtil.serialize(student).length);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;然后我们测试两种序列化框架的序列化结果:<br><img src="/../images/2.png" alt="序列化长度对比"><br>&emsp;&emsp;从结果中可以发现，ProtoStuff序列化在长度上确实优于Json。但是这还不够，我们接下来要知道这个序列化的瓶颈在哪儿。很明显，与正常的序列化相比，我们在这里序列化最大的开销就是为了能够还原Object类型时所记录的Class信息。因此我们可以很自然的想到我们的调用方和提供方都有同样的类信息，那么我们能不能用类名来替代Class对象呢？答案是可以的，我们先修改Student类，让Object对象变成一个字节数组，然后将Class对象变为字符串，在序列化和反序列化的双方通过字符串去查找类即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -336,7 +342,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2025/05/21/rpc2/" title="rpc2" target="_blank" rel="external">http://example.com/2025/05/21/rpc2/</a>
+      <a href="http://hit-1190200416.github.io/2025/05/21/rpc2/" title="rpc2" target="_blank" rel="external">http://hit-1190200416.github.io/2025/05/21/rpc2/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -351,7 +357,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/hit-1190200416" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://www.gravatar.com/avatar/d3b1f4ff8b102eb3fc89f083a3be51b9?s=128" class="img-rounded w-full" alt="">
+          <img src="/images/1.jpg" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
