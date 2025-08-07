@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>rag_1 | Hexo</title>
+  <meta name="description" content="改进内容1&emsp;&emsp;在之前的实验中我仅仅使用了一个语意分块器，但经过实验由于小说中每一章内的内容变化都不大，因此往往每个章节会被分成单独的一块，这样就导致分词失去了效果。因此在这里我又在语意分块器的基础上添加了一个递归分块器将文本切成更小块。 12345678if self.use_recursive_splitter:    text_splitter &#x3D; RecursiveCha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rag_1">
+<meta property="og:url" content="http://hit-1190200416.github.io/2025/08/07/rag-1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="改进内容1&emsp;&emsp;在之前的实验中我仅仅使用了一个语意分块器，但经过实验由于小说中每一章内的内容变化都不大，因此往往每个章节会被分成单独的一块，这样就导致分词失去了效果。因此在这里我又在语意分块器的基础上添加了一个递归分块器将文本切成更小块。 12345678if self.use_recursive_splitter:    text_splitter &#x3D; RecursiveCha">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/%E5%87%BB%E8%B4%A5%E5%8F%B6%E7%9C%9F.png">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/%E5%8D%81%E5%B1%82%E9%AC%BC%E5%9F%9F.png">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/%E8%8E%B7%E5%BE%97%E6%9F%B4%E5%88%80.png">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/%E5%87%BB%E8%B4%A5%E5%8F%B6%E7%9C%9F1.png">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/%E5%8D%81%E5%B1%82%E9%AC%BC%E5%9F%9F1.png">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/%E8%8E%B7%E5%BE%97%E6%9F%B4%E5%88%801.png">
+<meta property="article:published_time" content="2025-08-07T08:09:28.000Z">
+<meta property="article:modified_time" content="2025-08-07T14:16:09.747Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hit-1190200416.github.io/images/%E5%87%BB%E8%B4%A5%E5%8F%B6%E7%9C%9F.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://hit-1190200416.github.io/2025/08/07/rag-1/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/hit-1190200416" target="_blank">
+          <img class="img-circle img-rotate" src="/images/1.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">无敌APEX大王</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">研究生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 哈尔滨</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hit-1190200416" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag">bean的生命周期</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpc/" rel="tag">rpc</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">序列化</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" style="font-size: 13px;">bean的生命周期</a> <a href="/tags/rpc/" style="font-size: 14px;">rpc</a> <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 13px;">序列化</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/08/07/rag-1/" class="title">rag_1</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-08-07T08:09:28.000Z" itemprop="datePublished">2025-08-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/08/07/rag/" class="title">rag</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-08-07T07:31:27.000Z" itemprop="datePublished">2025-08-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/05/21/rpc2/" class="title">rpc2</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-05-21T08:19:51.000Z" itemprop="datePublished">2025-05-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/05/21/rpc1/" class="title">rpc1</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-05-21T05:56:20.000Z" itemprop="datePublished">2025-05-21</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-rag-1" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      rag_1
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2025/08/07/rag-1/" class="article-date">
+	  <time datetime="2025-08-07T08:09:28.000Z" itemprop="datePublished">2025-08-07</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/08/07/rag-1/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="改进内容1"><a href="#改进内容1" class="headerlink" title="改进内容1"></a>改进内容1</h1><p>&emsp;&emsp;在之前的实验中我仅仅使用了一个语意分块器，但经过实验由于小说中每一章内的内容变化都不大，因此往往每个章节会被分成单独的一块，这样就导致分词失去了效果。因此在这里我又在语意分块器的基础上添加了一个递归分块器将文本切成更小块。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="variable language_">self</span>.use_recursive_splitter:</span><br><span class="line">    text_splitter = RecursiveCharacterTextSplitter(</span><br><span class="line">    <span class="comment"># 针对中英文混合文本，定义一个更全面的分隔符列表</span></span><br><span class="line">    separators=[<span class="string">&quot;\n\n&quot;</span>, <span class="string">&quot;\n&quot;</span>, <span class="string">&quot;。&quot;</span>, <span class="string">&quot;，&quot;</span>, <span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>], <span class="comment"># 按顺序尝试分割</span></span><br><span class="line">    chunk_size=<span class="number">2000</span>,</span><br><span class="line">    chunk_overlap=<span class="number">500</span></span><br><span class="line">    )</span><br><span class="line">    docs = text_splitter.split_documents(docs)</span><br></pre></td></tr></table></figure>
+
+<h1 id="改进内容2（重中之重）"><a href="#改进内容2（重中之重）" class="headerlink" title="改进内容2（重中之重）"></a>改进内容2（重中之重）</h1><p>&emsp;&emsp;根据我的实验，仅仅使用FAISS数据库进行上下文查询会出现非常多找不到上下文的情况。在这里我以小说神秘复苏为例，提了几个问题分别是：</p>
+<ul>
+<li>杨间是怎么击败叶真的？</li>
+<li>杨间的十层鬼域有什么效果？</li>
+<li>杨间是怎么获得柴刀的？<br>其结果如下：</br><br><img src="/../images/%E5%87%BB%E8%B4%A5%E5%8F%B6%E7%9C%9F.png" alt="击败叶真"></br><br><img src="/../images/%E5%8D%81%E5%B1%82%E9%AC%BC%E5%9F%9F.png" alt="十层鬼域"></br><br><img src="/../images/%E8%8E%B7%E5%BE%97%E6%9F%B4%E5%88%80.png" alt="获得柴刀"></br><br>&emsp;&emsp;第一个击败叶真这个说的虽然不全对，但看的出来找到的上下文确实是和叶真对战的部分，只是定位的不够精准。关于十层鬼域的问答就已经完全罢工了，而获取柴刀的上下文也是歪到姥姥家了。因此我们必须有针对性的修改。归根结底这类概念性的问题都必须要准确的找到匹配关键词的上下文，而在FAISS数据库中我们只能够使用稠密编码进行语意上的匹配，这样是做不到精确匹配的。因此我们需要对匹配的方式进行修改。</br><br>&emsp;&emsp;为了进行精确的匹配，我们需要对关键词进行唯一的稀疏编码，然后同时使用稀疏编码和稠密编码进行混合上下文检索来达到我的目的。在这里我选择了Milvus数据库，该数据库可以同时根据视图中的多个关键字段进行混合检索，完美的符合我们的预期。为此我们首先需要先定义Milvus视图。</br></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MilvusMoudle</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, COLLECTION_NAME=<span class="string">&quot;dragon_hybrid_demo&quot;</span>, MILVUS_URI=<span class="string">&quot;http://localhost:19530&quot;</span></span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;--&gt; 正在连接到 Milvus: <span class="subst">&#123;MILVUS_URI&#125;</span>&quot;</span>)</span><br><span class="line">        connections.connect(uri=MILVUS_URI)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;--&gt; 正在初始化 BGE-M3 嵌入模型...&quot;</span>)</span><br><span class="line">        <span class="variable language_">self</span>.ef = BGEM3EmbeddingFunction(use_fp16=<span class="literal">False</span>, device=<span class="string">&quot;cuda&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;--&gt; 嵌入模型初始化完成。密集向量维度: <span class="subst">&#123;self.ef.dim[<span class="string">&#x27;dense&#x27;</span>]&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="comment"># 3. 创建 Collection</span></span><br><span class="line">        milvus_client = MilvusClient(uri=MILVUS_URI)</span><br><span class="line">        <span class="keyword">if</span> milvus_client.has_collection(COLLECTION_NAME):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;--&gt; 存在的 Collection &#x27;<span class="subst">&#123;COLLECTION_NAME&#125;</span>&#x27;...&quot;</span>)</span><br><span class="line">        fields = [</span><br><span class="line">            FieldSchema(name=<span class="string">&quot;pk&quot;</span>, dtype=DataType.VARCHAR, is_primary=<span class="literal">True</span>, auto_id=<span class="literal">True</span>, max_length=<span class="number">100</span>),</span><br><span class="line">            FieldSchema(name=<span class="string">&quot;title&quot;</span>, dtype=DataType.VARCHAR, max_length=<span class="number">256</span>),</span><br><span class="line">            FieldSchema(name=<span class="string">&quot;content&quot;</span>, dtype=DataType.VARCHAR, max_length=<span class="number">20000</span>),</span><br><span class="line">            FieldSchema(name=<span class="string">&quot;sparse_vector&quot;</span>, dtype=DataType.SPARSE_FLOAT_VECTOR),</span><br><span class="line">            FieldSchema(name=<span class="string">&quot;dense_vector&quot;</span>, dtype=DataType.FLOAT_VECTOR, dim=<span class="variable language_">self</span>.ef.dim[<span class="string">&quot;dense&quot;</span>])</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果集合不存在，则创建它及索引</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> milvus_client.has_collection(COLLECTION_NAME):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;--&gt; 正在创建 Collection &#x27;<span class="subst">&#123;COLLECTION_NAME&#125;</span>&#x27;...&quot;</span>)</span><br><span class="line">            schema = CollectionSchema(fields, description=<span class="string">&quot;&quot;</span>)</span><br><span class="line">            <span class="comment"># 创建集合</span></span><br><span class="line">            collection = Collection(name=COLLECTION_NAME, schema=schema, consistency_level=<span class="string">&quot;Strong&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;--&gt; Collection 创建成功。&quot;</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 创建索引</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;--&gt; 正在为新集合创建索引...&quot;</span>)</span><br><span class="line">            sparse_index = &#123;<span class="string">&quot;index_type&quot;</span>: <span class="string">&quot;SPARSE_INVERTED_INDEX&quot;</span>, <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;IP&quot;</span>&#125;</span><br><span class="line">            collection.create_index(<span class="string">&quot;sparse_vector&quot;</span>, sparse_index)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;稀疏向量索引创建成功。&quot;</span>)</span><br><span class="line"></span><br><span class="line">            dense_index = &#123;<span class="string">&quot;index_type&quot;</span>: <span class="string">&quot;AUTOINDEX&quot;</span>, <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;IP&quot;</span>&#125;</span><br><span class="line">            collection.create_index(<span class="string">&quot;dense_vector&quot;</span>, dense_index)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;密集向量索引创建成功。&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.collection = Collection(COLLECTION_NAME)</span><br><span class="line">        <span class="variable language_">self</span>.collection.load()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;--&gt; Collection &#x27;<span class="subst">&#123;COLLECTION_NAME&#125;</span>&#x27; 已加载到内存。&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;视图中的title为章节名，在后续根据章节筛选上下文时可能会用到。content是原始数据，一个chunk中的内容。而sparse_vector、dense_vector就是我们用于匹配的向量编码。将分块后的文档插入的部分很简单就不贴代码了</br><br>&emsp;&emsp;最后就是根据问题进行混合检索了，这也是milvus的核心功能，直接调库就行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">query</span>(<span class="params">self, query: <span class="built_in">str</span>, <span class="built_in">filter</span>=<span class="literal">None</span>, top_k=<span class="number">7</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 生成查询向量</span></span><br><span class="line">    query_embeddings = <span class="variable language_">self</span>.ef([query])</span><br><span class="line">    dense_vec = query_embeddings[<span class="string">&quot;dense&quot;</span>][<span class="number">0</span>]</span><br><span class="line">    sparse_vec = query_embeddings[<span class="string">&quot;sparse&quot;</span>]._getrow(<span class="number">0</span>)</span><br><span class="line">    rerank = RRFRanker(k=<span class="number">60</span>)</span><br><span class="line">    search_params = &#123;<span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;IP&quot;</span>, <span class="string">&quot;params&quot;</span>: &#123;&#125;&#125;</span><br><span class="line">    <span class="comment"># 创建搜索请求</span></span><br><span class="line">    dense_req = AnnSearchRequest([dense_vec], <span class="string">&quot;dense_vector&quot;</span>, search_params, limit=top_k)</span><br><span class="line">    sparse_req = AnnSearchRequest([sparse_vec], <span class="string">&quot;sparse_vector&quot;</span>, search_params, limit=top_k)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行混合搜索</span></span><br><span class="line">    results = <span class="variable language_">self</span>.collection.hybrid_search(</span><br><span class="line">        [sparse_req, dense_req],</span><br><span class="line">        rerank=rerank,</span><br><span class="line">        limit=top_k,</span><br><span class="line">            output_fields=[<span class="string">&quot;title&quot;</span>, <span class="string">&quot;content&quot;</span>]</span><br><span class="line">    )[<span class="number">0</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Results for query &#x27;<span class="subst">&#123;query&#125;</span>&#x27;:&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;\n\n&quot;</span>.join([hit.content <span class="keyword">for</span> hit <span class="keyword">in</span> results])</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;最后让我们来看看结果</br><br><img src="/../images/%E5%87%BB%E8%B4%A5%E5%8F%B6%E7%9C%9F1.png" alt="击败叶真"></br><br><img src="/../images/%E5%8D%81%E5%B1%82%E9%AC%BC%E5%9F%9F1.png" alt="十层鬼域"></br><br><img src="/../images/%E8%8E%B7%E5%BE%97%E6%9F%B4%E5%88%801.png" alt="获得柴刀"></br><br>&emsp;&emsp;不说完全正确吧，只能说分毫不差，概括的非常的好。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://hit-1190200416.github.io/2025/08/07/rag-1/" title="rag_1" target="_blank" rel="external">http://hit-1190200416.github.io/2025/08/07/rag-1/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hit-1190200416" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/1.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hit-1190200416" target="_blank"><span class="text-dark">无敌APEX大王</span><small class="ml-1x">研究生</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2025/08/07/rag/" title="rag"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hit-1190200416" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
