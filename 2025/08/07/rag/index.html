@@ -17,24 +17,24 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>rpc1 | Hexo</title>
-  <meta name="description" content="前言&emsp;&emsp;我的RPC项目来自于复现Gitee上的一个开源项目，不过在复现的时候根据自己对RPC的理解，增加了部分代码，比如服务注册和序列化的优化。这一系列的博客主要的目的就是记录一下自己增加这些代码的初心和实现是遇到的一些难题。 自动服务注册我对RPC的理解&emsp;&emsp;这里贴一段非常官方的说法：RPC（Remote Procedure Call，远程过程调用）是一种通">
+  <title>rag | Hexo</title>
+  <meta name="description" content="前言&emsp;&emsp;我在烂柿子平台看连载小说的时候，有时候会遇到因为放了一段时间没看导致前面的一些伏笔或者联动的部分完全忘了，这个时候势必会影响阅读的体验。我希望这些小说平台能出一个就小说内容对AI提问的功能来解决这个问题，比如某某道具的作用是什么、某某角色做过什么事。不过很可惜，目前的小说平台并没有类似的功能。想到我之前学习过一个小说商城的项目，所以我想自己尝试实现一下这个功能。&amp;ems">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rpc1">
-<meta property="og:url" content="http://hit-1190200416.github.io/2025/05/21/rpc1/index.html">
+<meta property="og:title" content="rag">
+<meta property="og:url" content="http://hit-1190200416.github.io/2025/08/07/rag/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言&emsp;&emsp;我的RPC项目来自于复现Gitee上的一个开源项目，不过在复现的时候根据自己对RPC的理解，增加了部分代码，比如服务注册和序列化的优化。这一系列的博客主要的目的就是记录一下自己增加这些代码的初心和实现是遇到的一些难题。 自动服务注册我对RPC的理解&emsp;&emsp;这里贴一段非常官方的说法：RPC（Remote Procedure Call，远程过程调用）是一种通">
+<meta property="og:description" content="前言&emsp;&emsp;我在烂柿子平台看连载小说的时候，有时候会遇到因为放了一段时间没看导致前面的一些伏笔或者联动的部分完全忘了，这个时候势必会影响阅读的体验。我希望这些小说平台能出一个就小说内容对AI提问的功能来解决这个问题，比如某某道具的作用是什么、某某角色做过什么事。不过很可惜，目前的小说平台并没有类似的功能。想到我之前学习过一个小说商城的项目，所以我想自己尝试实现一下这个功能。&amp;ems">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://hit-1190200416.github.io/images/1.png">
-<meta property="article:published_time" content="2025-05-21T05:56:20.000Z">
-<meta property="article:modified_time" content="2025-05-21T08:46:57.886Z">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/rag1.png">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/rag2.png">
+<meta property="og:image" content="http://hit-1190200416.github.io/images/rag3.png">
+<meta property="article:published_time" content="2025-08-07T07:31:27.000Z">
+<meta property="article:modified_time" content="2025-08-07T08:04:28.765Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="rpc">
-<meta property="article:tag" content="bean的生命周期">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://hit-1190200416.github.io/images/1.png">
+<meta name="twitter:image" content="http://hit-1190200416.github.io/images/rag1.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://hit-1190200416.github.io/2025/05/21/rpc1/index.html">
+  <link rel="canonical" href="http://hit-1190200416.github.io/2025/08/07/rag/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -308,14 +308,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-rpc1" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-rag" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      rpc1
+      rag
     </h1>
   
 
@@ -323,37 +323,36 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2025/05/21/rpc1/" class="article-date">
-	  <time datetime="2025-05-21T05:56:20.000Z" itemprop="datePublished">2025-05-21</time>
+	<a href="/2025/08/07/rag/" class="article-date">
+	  <time datetime="2025-08-07T07:31:27.000Z" itemprop="datePublished">2025-08-07</time>
 	</a>
 </span>
         
         
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag">bean的生命周期</a>, <a class="article-tag-link-link" href="/tags/rpc/" rel="tag">rpc</a>
-  </span>
-
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/05/21/rpc1/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/08/07/rag/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;我的RPC项目来自于复现Gitee上的一个<a target="_blank" rel="noopener" href="https://gitee.com/cjwwarren/MyRPCFromZero">开源项目</a>，不过在复现的时候根据自己对RPC的理解，增加了部分代码，比如服务注册和序列化的优化。这一系列的博客主要的目的就是记录一下自己增加这些代码的初心和实现是遇到的一些难题。</p>
-<h1 id="自动服务注册"><a href="#自动服务注册" class="headerlink" title="自动服务注册"></a>自动服务注册</h1><h2 id="我对RPC的理解"><a href="#我对RPC的理解" class="headerlink" title="我对RPC的理解"></a>我对RPC的理解</h2><p>&emsp;&emsp;这里贴一段非常官方的说法：RPC（Remote Procedure Call，远程过程调用）是一种通过网络进行进程间通信的协议。RPC协议允许一个进程调用另一个进程的某个方法，就像调用本地方法一样。根据这段描述，我认为RPC的一个重要的目标就是调用远程方法就和调用一个本地库一样，毫无感知。 </p>
-<h2 id="我认为的RPC的组成"><a href="#我认为的RPC的组成" class="headerlink" title="我认为的RPC的组成"></a>我认为的RPC的组成</h2><p>&emsp;&emsp;基于我粗略的学习Spring Cloud的认知，我觉得一个RPC的服务主要分为三个部分。一个是服务接口的提供方，这个部分的开发应该是最早的，其提供了RPC过程中需要调用的实体类以及函数接口，并且被打包成jar包安装到另外两个部分中。第二个部分是服务的实现方，这个部分实现提供方的接口，以供调用方通过web调用。最后就是调用方。调用方调用jar包中的接口，以此调用实现方中的最终实现。<br><img src="/../images/1.png" alt="三方示意图"></p>
-<h2 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h2><p>&emsp;&emsp;第一个问题就是我们为什么需要服务注册。事实上RPC在调用的时候需要通过反射机制解析接口的内容，比如提供接口的接口类、方法名以及参数类型和返回值类型。然后使用合适的web框架将请求发送到服务实现方。服务实现方根据接口类、方法名以及参数类型和返回值类型找到对应的实现，然后调用<font color=red><strong>实现</strong></font>，最后返回调用结果和函数的结果。这里存在一个问题，调用方只知道接口类、方法名以及参数类型和返回值类型，但是不知道对应的实现。因此服务的提供方就必须要将实现方注册到服务注册中心，服务调用方才能找到对应的实现方。在我学习的开源项目中，这个部分是由提供方手动注册实现的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServiceProvider</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 一个实现类可能实现多个接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Object&gt; interfaceProvider;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ServiceProvider</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.interfaceProvider = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">provideServiceInterface</span><span class="params">(Object service)</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">serviceName</span> <span class="operator">=</span> service.getClass().getName();</span><br><span class="line">        Class&lt;?&gt;[] interfaces = service.getClass().getInterfaces();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Class clazz : interfaces)&#123;</span><br><span class="line">            interfaceProvider.put(clazz.getName(),service);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">getService</span><span class="params">(String interfaceName)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> interfaceProvider.get(interfaceName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestServer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">UserService</span> <span class="variable">userService</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserServiceImpl</span>();</span><br><span class="line">        <span class="type">BlogService</span> <span class="variable">blogService</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BlogServiceImpl</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//        Map&lt;String, Object&gt; serviceProvide = new HashMap&lt;&gt;();</span></span><br><span class="line"><span class="comment">//        serviceProvide.put(&quot;com.ganghuan.myRPCVersion2.service.UserService&quot;,userService);</span></span><br><span class="line"><span class="comment">//        serviceProvide.put(&quot;com.ganghuan.myRPCVersion2.service.BlogService&quot;,blogService);</span></span><br><span class="line">        <span class="type">ServiceProvider</span> <span class="variable">serviceProvider</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServiceProvider</span>();</span><br><span class="line">        serviceProvider.provideServiceInterface(userService);</span><br><span class="line">        serviceProvider.provideServiceInterface(blogService);</span><br><span class="line">        </span><br><span class="line">        <span class="type">RPCServer</span> <span class="variable">RPCServer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleRPCRPCServer</span>(serviceProvider);</span><br><span class="line">        RPCServer.start(<span class="number">8899</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;这个实现方法看上去没什么问题，但是经过Spring框架熏陶过的我们肯定觉得这个方法不优雅。首先在服务启动的时候我们要手动的创建实现类，那么后续如果服务终止对资源的释放还得手动实现，这太过麻烦。因此将实现类注册为bean才是一个优雅的选择。通过注册bean然后在启动时找到bean手动放入serviceProvider中还是不够优雅，因此我们就需要利用到bean的生命周期，在服务创建完成时就将bean注册进serviceProvider中。因此我自定义了一个CustomService注解用于修饰我需要注册的实现类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span>  <span class="comment">// 只能用在类上</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span>  <span class="comment">// 运行时可用</span></span><br><span class="line"><span class="meta">@Service</span>  <span class="comment">// 继承 @Service 的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> CustomService &#123;</span><br><span class="line">    <span class="comment">// 可添加额外的属性</span></span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;然后在bean的生命周期中解析这个注解，对所有包含了这个注解的bean进行注册进serviceProvider中。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomServicePostProcessor</span> <span class="keyword">implements</span> <span class="title class_">BeanPostProcessor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 用于存放所有 @CustomService 修饰的 Bean</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        <span class="comment">// 判断 Bean 是否被 @CustomService 修饰</span></span><br><span class="line">        <span class="keyword">if</span> (bean.getClass().isAnnotationPresent(CustomService.class)) &#123;</span><br><span class="line">            ServiceProvider.provideServiceInterface(bean);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;最后我们在Spring中配置这个生命周期的处理，这样我们就完成了自动服务注册。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;我在烂柿子平台看连载小说的时候，有时候会遇到因为放了一段时间没看导致前面的一些伏笔或者联动的部分完全忘了，这个时候势必会影响阅读的体验。我希望这些小说平台能出一个就小说内容对AI提问的功能来解决这个问题，比如某某道具的作用是什么、某某角色做过什么事。不过很可惜，目前的小说平台并没有类似的功能。想到我之前学习过一个小说商城的项目，所以我想自己尝试实现一下这个功能。</br><br>&emsp;&emsp;想到目前大模型落地相关的工作特别火，因此我想使用RAG的方式来实现这个功能，我希望能够满足以下几个我的需求：</p>
+<ul>
+<li>因为小说中有的概念在防止一段时间后可能会完全忘记，所以希望有一个功能能够提示我这个概念的含义。</li>
+<li>有时候小说可能会跳着读，所以我希望能有个功能能够概括我跳过的中间几个章节的内容。</li>
+<li>最后有时候追连载追着追着就忘记前面几章的内容，因此我希望能有一个简单的前情提要功能。</li>
+</ul>
+<h1 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h1><p>&emsp;&emsp;前期准备：大模型选择使用deepseek API，价格不贵效果也不错。RAG框架使用langchain，简单易上手。</br><br>&emsp;&emsp;为了实现这个功能，第一步就是要准备数据，我在网络上找到了《诡舍》这本小说的txt文件，后续就以这本小说为提问模板。找到txt文件后就需要格式化数据。原始数据如图所示。这样的数据太大，即不好分块，也不好完成后续的根据章节进行提问，因此首先我需要根据章节将小说进行拆分。</p>
+<p><img src="/../images/rag1.png" alt="原始数据示意"><br><img src="/../images/rag2.png" alt="处理后的数据"><br>&emsp;&emsp;接下来就是数据的加载，毕竟我们在这里进行分析的是小说，所以在分块器这里我们选用语意分块器，这种分块器仅仅在语意有剧烈转折时会对文本进行切分，比较适合我们的小说分析。语意分块模块中每次加载小说的一个章节，使用语义信息对其进行分块处理。考虑到后续我们还需要根据章节进行检索提问，因此我们在元数据这里加上了章节名。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SemanticChunkerMoudule</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, embeddings</span>):</span><br><span class="line">       </span><br><span class="line">        <span class="comment"># 初始化 SemanticChunker</span></span><br><span class="line">        <span class="variable language_">self</span>.text_splitter = SemanticChunker(</span><br><span class="line">            embeddings,</span><br><span class="line">            breakpoint_threshold_type=<span class="string">&quot;percentile&quot;</span>, <span class="comment"># 也可以是 &quot;standard_deviation&quot;, &quot;interquartile&quot;, &quot;gradient&quot;</span></span><br><span class="line">            breakpoint_threshold_amount=<span class="number">0.5</span>,</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">chunk_text</span>(<span class="params">self, txt_path</span>):</span><br><span class="line">        loader = TextLoader(txt_path, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">        documents = loader.load()</span><br><span class="line"></span><br><span class="line">        docs = <span class="variable language_">self</span>.text_splitter.split_documents(documents)</span><br><span class="line">        </span><br><span class="line">        docs = [Document(page_content=doc.page_content, metadata=&#123;<span class="string">&quot;chapter_name&quot;</span>: Path(txt_path).stem&#125;) <span class="keyword">for</span> doc <span class="keyword">in</span> docs]</span><br><span class="line">        <span class="keyword">return</span> docs</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;有了分块数据后我们就要考虑对embeddings的存储了，在这里因为我们仅仅涉及到文本这个单模态数据，因此在这里我选择FAISS作为embeddings的存储方式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">faiss_construct</span>(<span class="params">self</span>):</span><br><span class="line">    local_faiss_path = <span class="variable language_">self</span>.data_path + <span class="string">&quot;_faiss&quot;</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(local_faiss_path):</span><br><span class="line">        vectorstore = FAISS.load_local(</span><br><span class="line">                                        local_faiss_path,</span><br><span class="line">                                        <span class="variable language_">self</span>.embeddings,</span><br><span class="line">                                        allow_dangerous_deserialization=<span class="literal">True</span></span><br><span class="line">                                        )</span><br><span class="line">    <span class="keyword">else</span>: </span><br><span class="line">        <span class="variable language_">self</span>.load_data()</span><br><span class="line">        os.makedirs(local_faiss_path, exist_ok=<span class="literal">True</span>)</span><br><span class="line">        vectorstore = FAISS.from_documents(<span class="variable language_">self</span>.docs, <span class="variable language_">self</span>.embeddings)</span><br><span class="line">        vectorstore.save_local(local_faiss_path)</span><br><span class="line">    <span class="keyword">return</span> vectorstore</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;最后我们通过将问题编码后检索数据库中最匹配的内容将其作为上下文对大模型进行提问即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    vectorstore = DataPreparationModule(data_path=<span class="string">&quot;guishe&quot;</span>).faiss_construct()</span><br><span class="line">    <span class="comment"># 提示词模板</span></span><br><span class="line">    prompt = ChatPromptTemplate.from_template(<span class="string">&quot;&quot;&quot;请根据下面提供的上下文信息来回答问题。</span></span><br><span class="line"><span class="string">    请确保你的回答完全基于这些上下文。</span></span><br><span class="line"><span class="string">    如果上下文中没有足够的信息来回答问题，请直接告知：“抱歉，我无法根据提供的上下文找到相关信息来回答此问题。”</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    上下文:</span></span><br><span class="line"><span class="string">    &#123;context&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    问题: &#123;question&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    回答:&quot;&quot;&quot;</span></span><br><span class="line">                                            )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 配置大语言模型</span></span><br><span class="line">    llm = ChatDeepSeek(</span><br><span class="line">        model=<span class="string">&quot;deepseek-chat&quot;</span>,</span><br><span class="line">        temperature=<span class="number">0.7</span>,</span><br><span class="line">        max_tokens=<span class="number">2048</span>,</span><br><span class="line">        api_key=os.getenv(<span class="string">&quot;DEEPSEEK_API_KEY&quot;</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 用户查询</span></span><br><span class="line">    question = <span class="string">&quot;什么是鬼器？&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在向量存储中查询相关文档</span></span><br><span class="line">    retrieved_docs = vectorstore.similarity_search(question, k=<span class="number">3</span>)</span><br><span class="line">    docs_content = <span class="string">&quot;\n\n&quot;</span>.join(doc.page_content <span class="keyword">for</span> doc <span class="keyword">in</span> retrieved_docs)</span><br><span class="line"></span><br><span class="line">    answer = llm.invoke(prompt.<span class="built_in">format</span>(question=question, context=docs_content))</span><br><span class="line">    <span class="built_in">print</span>(answer.content)</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;运行结果如下：<br><img src="/../images/rag3.png" alt="提问结果"><br><br>&emsp;&emsp;可以看到，这个简单的实现已经基本能够满足我们第一个需求，可见大模型的实力之强悍。</p>
 
       
     </div>
@@ -363,7 +362,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://hit-1190200416.github.io/2025/05/21/rpc1/" title="rpc1" target="_blank" rel="external">http://hit-1190200416.github.io/2025/05/21/rpc1/</a>
+      <a href="http://hit-1190200416.github.io/2025/08/07/rag/" title="rag" target="_blank" rel="external">http://hit-1190200416.github.io/2025/08/07/rag/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -409,10 +408,10 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2025/05/21/rpc2/" title="rpc2"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
     
+    <li class="next">
+      <a href="/2025/05/21/rpc2/" title="rpc2"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
     
     
   </ul>
