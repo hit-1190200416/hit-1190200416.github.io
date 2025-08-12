@@ -17,24 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>rag | Hexo</title>
-  <meta name="description" content="前言&emsp;&emsp;我在烂柿子平台看连载小说的时候，有时候会遇到因为放了一段时间没看导致前面的一些伏笔或者联动的部分完全忘了，这个时候势必会影响阅读的体验。我希望这些小说平台能出一个就小说内容对AI提问的功能来解决这个问题，比如某某道具的作用是什么、某某角色做过什么事。不过很可惜，目前的小说平台并没有类似的功能。想到我之前学习过一个小说商城的项目，所以我想自己尝试实现一下这个功能。&amp;ems">
+  <title>创建线程 | Hexo</title>
+  <meta name="description" content="&emsp;&emsp;最近在复习八股的时候突然想起以前看到的一个八股，问的是创建线程有几种方式。我记得早期看到的版本五花八门的，比如Runnable，Callable，FutureTask等等。后来又看到一个说法说是真正创建线程的只有Thread类这一种方法。当时我对这个说法还不太理解，但是最近又重新思考了一下发现以前对线程和线程池的理解有很大的偏差。 线程与进程&emsp;&emsp;去年在面">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rag">
-<meta property="og:url" content="http://hit-1190200416.github.io/2025/08/07/rag/index.html">
+<meta property="og:title" content="创建线程">
+<meta property="og:url" content="http://hit-1190200416.github.io/2025/08/12/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言&emsp;&emsp;我在烂柿子平台看连载小说的时候，有时候会遇到因为放了一段时间没看导致前面的一些伏笔或者联动的部分完全忘了，这个时候势必会影响阅读的体验。我希望这些小说平台能出一个就小说内容对AI提问的功能来解决这个问题，比如某某道具的作用是什么、某某角色做过什么事。不过很可惜，目前的小说平台并没有类似的功能。想到我之前学习过一个小说商城的项目，所以我想自己尝试实现一下这个功能。&amp;ems">
+<meta property="og:description" content="&emsp;&emsp;最近在复习八股的时候突然想起以前看到的一个八股，问的是创建线程有几种方式。我记得早期看到的版本五花八门的，比如Runnable，Callable，FutureTask等等。后来又看到一个说法说是真正创建线程的只有Thread类这一种方法。当时我对这个说法还不太理解，但是最近又重新思考了一下发现以前对线程和线程池的理解有很大的偏差。 线程与进程&emsp;&emsp;去年在面">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://hit-1190200416.github.io/images/rag1.png">
-<meta property="og:image" content="http://hit-1190200416.github.io/images/rag2.png">
-<meta property="og:image" content="http://hit-1190200416.github.io/images/rag3.png">
-<meta property="article:published_time" content="2025-08-07T07:31:27.000Z">
-<meta property="article:modified_time" content="2025-08-07T08:06:48.949Z">
+<meta property="article:published_time" content="2025-08-12T15:02:58.000Z">
+<meta property="article:modified_time" content="2025-08-12T15:54:36.253Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://hit-1190200416.github.io/images/rag1.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://hit-1190200416.github.io/2025/08/07/rag/index.html">
+  <link rel="canonical" href="http://hit-1190200416.github.io/2025/08/12/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -338,14 +334,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-rag" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-创建线程" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      rag
+      创建线程
     </h1>
   
 
@@ -353,8 +349,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2025/08/07/rag/" class="article-date">
-	  <time datetime="2025-08-07T07:31:27.000Z" itemprop="datePublished">2025-08-07</time>
+	<a href="/2025/08/12/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B/" class="article-date">
+	  <time datetime="2025-08-12T15:02:58.000Z" itemprop="datePublished">2025-08-12</time>
 	</a>
 </span>
         
@@ -362,27 +358,22 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/08/07/rag/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/08/12/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;我在烂柿子平台看连载小说的时候，有时候会遇到因为放了一段时间没看导致前面的一些伏笔或者联动的部分完全忘了，这个时候势必会影响阅读的体验。我希望这些小说平台能出一个就小说内容对AI提问的功能来解决这个问题，比如某某道具的作用是什么、某某角色做过什么事。不过很可惜，目前的小说平台并没有类似的功能。想到我之前学习过一个小说商城的项目，所以我想自己尝试实现一下这个功能。</br><br>&emsp;&emsp;想到目前大模型落地相关的工作特别火，因此我想使用RAG的方式来实现这个功能，我希望能够满足以下几个我的需求：</p>
-<ul>
-<li>因为小说中有的概念在防止一段时间后可能会完全忘记，所以希望有一个功能能够提示我这个概念的含义。</li>
-<li>有时候小说可能会跳着读，所以我希望能有个功能能够概括我跳过的中间几个章节的内容。</li>
-<li>最后有时候追连载追着追着就忘记前面几章的内容，因此我希望能有一个简单的前情提要功能。</li>
-</ul>
-<h1 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h1><p>&emsp;&emsp;前期准备：大模型选择使用deepseek API，价格不贵效果也不错。RAG框架使用langchain，简单易上手。</br><br>&emsp;&emsp;为了实现这个功能，第一步就是要准备数据，我在网络上找到了《诡舍》这本小说的txt文件，后续就以这本小说为提问模板。找到txt文件后就需要格式化数据。原始数据如图所示。这样的数据太大，即不好分块，也不好完成后续的根据章节进行提问，因此首先我需要根据章节将小说进行拆分。</p>
-<p><img src="/../images/rag1.png" alt="原始数据示意"><br><img src="/../images/rag2.png" alt="处理后的数据"><br>&emsp;&emsp;接下来就是数据的加载，毕竟我们在这里进行分析的是小说，所以在分块器这里我们选用语意分块器，这种分块器仅仅在语意有剧烈转折时会对文本进行切分，比较适合我们的小说分析。语意分块模块中每次加载小说的一个章节，使用语义信息对其进行分块处理。考虑到后续我们还需要根据章节进行检索提问，因此我们在元数据这里加上了章节名。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SemanticChunkerMoudule</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, embeddings</span>):</span><br><span class="line">       </span><br><span class="line">        <span class="comment"># 初始化 SemanticChunker</span></span><br><span class="line">        <span class="variable language_">self</span>.text_splitter = SemanticChunker(</span><br><span class="line">            embeddings,</span><br><span class="line">            breakpoint_threshold_type=<span class="string">&quot;percentile&quot;</span>, <span class="comment"># 也可以是 &quot;standard_deviation&quot;, &quot;interquartile&quot;, &quot;gradient&quot;</span></span><br><span class="line">            breakpoint_threshold_amount=<span class="number">0.5</span>,</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">chunk_text</span>(<span class="params">self, txt_path</span>):</span><br><span class="line">        loader = TextLoader(txt_path, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">        documents = loader.load()</span><br><span class="line"></span><br><span class="line">        docs = <span class="variable language_">self</span>.text_splitter.split_documents(documents)</span><br><span class="line">        </span><br><span class="line">        docs = [Document(page_content=doc.page_content, metadata=&#123;<span class="string">&quot;chapter_name&quot;</span>: Path(txt_path).stem&#125;) <span class="keyword">for</span> doc <span class="keyword">in</span> docs]</span><br><span class="line">        <span class="keyword">return</span> docs</span><br></pre></td></tr></table></figure>
+        <p>&emsp;&emsp;最近在复习八股的时候突然想起以前看到的一个八股，问的是创建线程有几种方式。我记得早期看到的版本五花八门的，比如Runnable，Callable，FutureTask等等。后来又看到一个说法说是真正创建线程的只有Thread类这一种方法。当时我对这个说法还不太理解，但是最近又重新思考了一下发现以前对线程和线程池的理解有很大的偏差。</p>
+<h2 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h2><p>&emsp;&emsp;去年在面试华为的时候面试官问了一个基本的问题，就是线程与进程的区别。当时我答得不太好，只是说了表面的区别，就是进程所消耗的内存空间大，而线程所消耗的内存空间小，还不知死活的说了自己的比喻理解法，当时我就感觉面试官不是很满意。后来我又看了点操作系统的东西，有了新的想法：线程和进程最重要的区别就是对内存的分配。子进程会复制父进程的虚拟内存，而线程则是直接和父进程的共享虚拟内存，这也是为什么我讨论锁不锁的时候都是以多线程为基础，而不是进程，因为不同的进程根本就用不到同一块内存自然也就不用锁了。</br><br>&emsp;&emsp;当然，线程虽然和父进程共享虚拟内存，但是创建一个线程还是需要一些额外的资源，这里让大G老师来告诉我们都需要哪些资源：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">创建线程需要操作系统和运行时为新线程分配线程控制块、寄存器上下文和内核调度项，</span><br><span class="line">并为其开辟独立的栈空间和线程局部存储，同时线程对象本身和用于同步的互斥锁或信</span><br><span class="line">号量等资源也会占用内存或内核对象，而线程池管理结构、操作系统允许的最大线程数、</span><br><span class="line">CPU核心数与上下文切换开销、堆共享空间以及安全权限继承等因素则进一步影响线程</span><br><span class="line">创建时的资源消耗和整体性能表现。</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这就是为什么我们需要线程池的原因，毕竟总不能用一次线程就创建一下这些资源。</p>
+<h2 id="创建方式"><a href="#创建方式" class="headerlink" title="创建方式"></a>创建方式</h2><p>&emsp;&emsp;有了这些基础知识让我们来看一下这些所谓创建线程的方式，我们以Runnable为例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * When an object implementing interface &#123;<span class="doctag">@code</span> Runnable&#125; is used</span></span><br><span class="line"><span class="comment">     * to create a thread, starting the thread causes the object&#x27;s</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> run&#125; method to be called in that separately executing</span></span><br><span class="line"><span class="comment">     * thread.</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="comment">     * The general contract of the method &#123;<span class="doctag">@code</span> run&#125; is that it may</span></span><br><span class="line"><span class="comment">     * take any action whatsoever.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span>     java.lang.Thread#run()</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    System.out.println(Thread.currentThread().getName());</span><br><span class="line">    <span class="type">Runnable</span> <span class="variable">target</span> <span class="operator">=</span> () -&gt; System.out.println(Thread.currentThread().getName());</span><br><span class="line">    target.run();</span><br><span class="line">    <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(target);</span><br><span class="line">    thread.start();</span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 运行结果</span></span><br><span class="line"><span class="comment">     * main</span></span><br><span class="line"><span class="comment">     * main</span></span><br><span class="line"><span class="comment">     *Thread-0</span></span><br><span class="line"><span class="comment">     */</span></span><br></pre></td></tr></table></figure>
 
-<p>&emsp;&emsp;有了分块数据后我们就要考虑对embeddings的存储了，在这里因为我们仅仅涉及到文本这个单模态数据，因此在这里我选择FAISS作为embeddings的存储方式。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">faiss_construct</span>(<span class="params">self</span>):</span><br><span class="line">    local_faiss_path = <span class="variable language_">self</span>.data_path + <span class="string">&quot;_faiss&quot;</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(local_faiss_path):</span><br><span class="line">        vectorstore = FAISS.load_local(</span><br><span class="line">                                        local_faiss_path,</span><br><span class="line">                                        <span class="variable language_">self</span>.embeddings,</span><br><span class="line">                                        allow_dangerous_deserialization=<span class="literal">True</span></span><br><span class="line">                                        )</span><br><span class="line">    <span class="keyword">else</span>: </span><br><span class="line">        <span class="variable language_">self</span>.load_data()</span><br><span class="line">        os.makedirs(local_faiss_path, exist_ok=<span class="literal">True</span>)</span><br><span class="line">        vectorstore = FAISS.from_documents(<span class="variable language_">self</span>.docs, <span class="variable language_">self</span>.embeddings)</span><br><span class="line">        vectorstore.save_local(local_faiss_path)</span><br><span class="line">    <span class="keyword">return</span> vectorstore</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;最后我们通过将问题编码后检索数据库中最匹配的内容将其作为上下文对大模型进行提问即可。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    vectorstore = DataPreparationModule(data_path=<span class="string">&quot;guishe&quot;</span>).faiss_construct()</span><br><span class="line">    <span class="comment"># 提示词模板</span></span><br><span class="line">    prompt = ChatPromptTemplate.from_template(<span class="string">&quot;&quot;&quot;请根据下面提供的上下文信息来回答问题。</span></span><br><span class="line"><span class="string">    请确保你的回答完全基于这些上下文。</span></span><br><span class="line"><span class="string">    如果上下文中没有足够的信息来回答问题，请直接告知：“抱歉，我无法根据提供的上下文找到相关信息来回答此问题。”</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    上下文:</span></span><br><span class="line"><span class="string">    &#123;context&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    问题: &#123;question&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    回答:&quot;&quot;&quot;</span></span><br><span class="line">                                            )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 配置大语言模型</span></span><br><span class="line">    llm = ChatDeepSeek(</span><br><span class="line">        model=<span class="string">&quot;deepseek-chat&quot;</span>,</span><br><span class="line">        temperature=<span class="number">0.7</span>,</span><br><span class="line">        max_tokens=<span class="number">2048</span>,</span><br><span class="line">        api_key=os.getenv(<span class="string">&quot;DEEPSEEK_API_KEY&quot;</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 用户查询</span></span><br><span class="line">    question = <span class="string">&quot;什么是鬼器？&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在向量存储中查询相关文档</span></span><br><span class="line">    retrieved_docs = vectorstore.similarity_search(question, k=<span class="number">3</span>)</span><br><span class="line">    docs_content = <span class="string">&quot;\n\n&quot;</span>.join(doc.page_content <span class="keyword">for</span> doc <span class="keyword">in</span> retrieved_docs)</span><br><span class="line"></span><br><span class="line">    answer = llm.invoke(prompt.<span class="built_in">format</span>(question=question, context=docs_content))</span><br><span class="line">    <span class="built_in">print</span>(answer.content)</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;运行结果如下：<br><img src="/../images/rag3.png" alt="提问结果"><br><br>&emsp;&emsp;可以看到，这个简单的实现已经基本能够满足我们第一个需求，可见大模型的实力之强悍。</p>
+<p>&emsp;&emsp;首先根据看到Runnable接口的源代码我们可以发现，Runnable接口仅仅只是定义了线程需要运行的方法，完全没有任何资源申请的逻辑。进一步，我们通过一个创建线程的实例不难发现，如果仅仅只是把实现的Runnable对象运行起来，根本不会创建一个新的进程，run函数只是在主线程中运行。因此创建线程的本质与Runnable没有任何关系，所谓的通过Runnable创建线程的本质只是用Runnable来初始化一个Thread对象的运行方法。为了进一步弄懂线程是如何创建的，我们来看Thread的源代码<br/></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Thread</span><span class="params">(Runnable target)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>(<span class="literal">null</span>, target, <span class="string">&quot;Thread-&quot;</span> + nextThreadNum(), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="title function_">Thread</span><span class="params">(ThreadGroup g, Runnable target, String name,</span></span><br><span class="line"><span class="params">                <span class="type">long</span> stackSize, AccessControlContext acc,</span></span><br><span class="line"><span class="params">                <span class="type">boolean</span> inheritThreadLocals)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (name == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>(<span class="string">&quot;name cannot be null&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *以下省略</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;可以看到真正为一个线程申请资源的代码全部都在Thread的构造函数中。实现了Runnable接口的类，仅仅是提供了一个线程运行方法。</p>
 
       
     </div>
@@ -392,7 +383,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://hit-1190200416.github.io/2025/08/07/rag/" title="rag" target="_blank" rel="external">http://hit-1190200416.github.io/2025/08/07/rag/</a>
+      <a href="http://hit-1190200416.github.io/2025/08/12/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B/" title="创建线程" target="_blank" rel="external">http://hit-1190200416.github.io/2025/08/12/创建线程/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -438,13 +429,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2025/08/07/rag-1/" title="rag_1"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2025/05/21/rpc2/" title="rpc2"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2025/08/07/rag-1/" title="rag_1"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
